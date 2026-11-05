@@ -1,604 +1,425 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENA & Ley 2466 de 2025 | Regulación Cuota de Aprendizaje</title>
+    <title>Regulación Cuota SENA & Ley 2466 de 2025 - Autenticación Correo/Contraseña</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        sena: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                        },
-                        navy: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-sena-600 selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Navegación -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-800 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sena-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-sena-600/30 group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-graduation-cap text-xl"></i>
-                    </div>
-                    <div>
-                        <span class="text-xl font-bold text-white tracking-tight block leading-none">Aprendizaje<span class="text-sena-600">SENA</span></span>
-                        <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Ley 2466 de 2025</span>
-                    </div>
-                </a>
-
-                <!-- Enlaces Escritorio -->
-                <nav class="hidden md:flex items-center gap-8">
-                    <a href="#calculadora" class="text-sm font-medium text-slate-300 hover:text-sena-600 transition-colors">Calculadora</a>
-                    <a href="#comparativa" class="text-sm font-medium text-slate-300 hover:text-sena-600 transition-colors">Ley 789 vs 2466</a>
-                    <a href="#tramite" class="text-sm font-medium text-slate-300 hover:text-sena-600 transition-colors">Pasos del Trámite</a>
-                    <a href="#faq" class="text-sm font-medium text-slate-300 hover:text-sena-600 transition-colors">Preguntas Frecuentes</a>
-                </nav>
-
-                <!-- CTA -->
-                <div class="hidden md:flex items-center">
-                    <a href="#calculadora" class="px-5 py-2.5 rounded-xl bg-sena-600 hover:bg-sena-700 text-white font-medium text-sm transition-all shadow-md hover:shadow-lg hover:shadow-sena-600/25 active:scale-95">
-                        Calcular Cuota
-                    </a>
+    <!-- Header / Navbar -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg border border-emerald-500/20">
+                    <i data-lucide="scale" class="w-6 h-6"></i>
                 </div>
-
-                <!-- Botón Menú Móvil -->
-                <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-lg text-slate-300 hover:bg-slate-800 transition-colors focus:outline-none" aria-label="Toggle menu">
-                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
-                </button>
+                <div>
+                    <span class="font-bold text-lg leading-none block">SENA & Ley 2466</span>
+                    <span class="text-xs text-slate-400">Regulación Cuota de Aprendizaje</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Menú Móvil -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-navy-900/95 backdrop-blur-md px-4 pt-2 pb-6 space-y-3">
-            <a href="#calculadora" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-sena-600">Calculadora de Cuota</a>
-            <a href="#comparativa" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-sena-600">Ley 789 vs Ley 2466</a>
-            <a href="#tramite" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-sena-600">Trámite ante el SENA</a>
-            <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-sena-600">Preguntas Frecuentes</a>
-            <div class="pt-2">
-                <a href="#calculadora" class="mobile-nav-link block w-full text-center py-3 rounded-xl bg-sena-600 text-white font-medium shadow-md">Ir a Calculadora</a>
+            <!-- Auth Status Header -->
+            <div id="authHeaderContainer">
+                <div id="userInfoHeader" class="hidden flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-slate-900 font-bold flex items-center justify-center text-xs" id="userInitialHeader">U</div>
+                    <span id="userNameHeader" class="text-xs font-semibold text-slate-200 hidden md:inline"></span>
+                    <button id="btnLogoutHeader" class="text-slate-400 hover:text-red-400 text-xs font-medium underline transition">Cerrar Sesión</button>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="pt-20">
-        <!-- Hero Banner -->
-        <section class="relative py-20 lg:py-28 overflow-hidden bg-navy-900 text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="max-w-3xl space-y-6 text-center md:text-left">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sena-600/20 border border-sena-600/40 text-sena-600 text-xs font-semibold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-sena-600 animate-pulse"></span> Actualizado con la Reforma Laboral 2025
-                    </div>
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                        Regulación de Cuota de Aprendizaje en Colombia
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-12">
+        
+        <!-- Hero & Auth Section -->
+        <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden border border-slate-700/50">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 rounded-full text-xs font-semibold tracking-wide uppercase">
+                        Actualizado Ley 2466 de 2025
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Plataforma de Gestión y Regulación de Cuota SENA
                     </h1>
-                    <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed">
-                        Conoce la cuota mínima de aprendices requerida para empresas con 15 o más trabajadores, simula los costos de vinculación vs monetización y analiza el impacto de la <strong class="text-white">Ley 2466 de 2025</strong>.
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        Evalúa la cuota de aprendizaje de tu empresa (15+ trabajadores), calcula los costos de vinculación laboral directa vs. monetización y mantente al día con la Reforma Laboral.
                     </p>
-                    <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center md:justify-start">
-                        <a href="#calculadora" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-sena-600 hover:bg-sena-700 text-white font-semibold shadow-lg shadow-sena-600/30 transition-all text-center">
-                            Probar Calculadora de Cuota <i class="fa-solid fa-calculator ml-2"></i>
-                        </a>
-                        <a href="#comparativa" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition-all text-center">
-                            Ver Cambios de Ley
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Glow background -->
-            <div class="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-sena-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        </section>
-
-        <!-- Calculadora Interactiva -->
-        <section id="calculadora" class="py-20 bg-slate-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sena-100 text-sena-800 text-xs font-semibold uppercase tracking-wider">
-                        Simulador Financiero
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Calculadora de Cuota y Comparativo Financiero</h2>
-                    <p class="text-slate-600 text-base sm:text-lg">Ingresa la nómina de trabajadores directos para determinar la cuota regulada por el SENA y evaluar los costos bajo la Ley 2466 de 2025.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    <!-- Formulario Entrada -->
-                    <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
-                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-users text-sena-600"></i> Datos de la Empresa
-                        </h3>
+                <!-- Auth Action Card (Email / Password) -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-800/90 backdrop-blur border border-slate-700 p-6 rounded-xl shadow-xl space-y-4">
                         
-                        <div>
-                            <label for="num-trabajadores" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                                Número de Trabajadores Directos en Planta
-                            </label>
-                            <div class="relative">
-                                <input type="number" id="num-trabajadores" min="0" value="25" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sena-600 focus:border-transparent text-lg font-semibold text-slate-900 bg-slate-50">
-                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">empleados</span>
+                        <!-- Form Unauthenticated State -->
+                        <div id="authSignedOutState">
+                            <!-- Toggle Tabs: Login / Register -->
+                            <div class="flex border-b border-slate-700 mb-4">
+                                <button id="tabLogin" class="w-1/2 py-2 text-center text-sm font-semibold text-emerald-400 border-b-2 border-emerald-400 transition">Iniciar Sesión</button>
+                                <button id="tabRegister" class="w-1/2 py-2 text-center text-sm font-semibold text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition">Registrarse</button>
                             </div>
-                            <p class="text-xs text-slate-500 mt-2">
-                                <i class="fa-solid fa-circle-info mr-1"></i> Incluye trabajadores con contrato de trabajo directo en todas las sedes del país.
-                            </p>
-                        </div>
 
-                        <div>
-                            <label for="smmlv-val" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
-                                Valor SMMLV Vigente (COP $)
-                            </label>
-                            <input type="number" id="smmlv-val" value="1423500" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sena-600 text-slate-900 font-medium bg-slate-50">
-                            <p class="text-xs text-slate-500 mt-1">Modifica este valor para simulaciones con el salario mínimo actualizado.</p>
-                        </div>
+                            <!-- Alert Messages -->
+                            <div id="authErrorMsg" class="hidden p-3 rounded-lg bg-red-500/20 border border-red-500/30 text-red-300 text-xs"></div>
+                            <div id="authSuccessMsg" class="hidden p-3 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs"></div>
 
-                        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200/80">
-                            <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wide flex items-center gap-1.5">
-                                <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Regla de Cómputo SENA
-                            </h4>
-                            <ul class="text-xs text-amber-800 space-y-1 mt-2 list-disc list-inside">
-                                <li>De 15 a 20 trabajadores = <strong>1 Aprendiz</strong></li>
-                                <li>Más de 20 trabajadores = <strong>1 por cada 20 + 1 por fracción ≥ 10</strong></li>
-                                <li>Menos de 15 trabajadores = <strong>Sin obligación legal</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Resultados / Cuota y Costos -->
-                    <div class="lg:col-span-7 space-y-6">
-                        <!-- Card Resumen Cuota -->
-                        <div class="bg-navy-900 text-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
-                            <div>
-                                <span class="text-xs font-semibold uppercase tracking-wider text-sena-600">Resultado de Regulación</span>
-                                <h4 class="text-2xl font-bold mt-1" id="estado-obligacion">Empresa Obligada</h4>
-                                <p class="text-xs text-slate-400 mt-1" id="detalle-formula">Para 25 trabajadores en planta nacional</p>
-                            </div>
-                            <div class="text-center sm:text-right bg-slate-800/80 px-6 py-4 rounded-2xl border border-slate-700 w-full sm:w-auto">
-                                <span class="text-xs text-slate-400 block font-medium">Cuota Regulada SENA</span>
-                                <span class="text-4xl font-extrabold text-sena-600" id="cuota-resultado">2</span>
-                                <span class="text-xs text-slate-300 block font-medium mt-0.5">Aprendiz(ces)</span>
-                            </div>
-                        </div>
-
-                        <!-- Comparativo de Opciones (Ley 2466) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <!-- Opción 1: Vinculación Laboral -->
-                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4 relative overflow-hidden">
-                                <div class="w-2 h-full bg-sena-600 absolute left-0 top-0"></div>
-                                <div class="flex items-center justify-between">
-                                    <span class="px-2.5 py-1 rounded-full bg-sena-50 text-sena-700 text-xs font-bold">Opción A</span>
-                                    <i class="fa-solid fa-id-card text-sena-600 text-lg"></i>
+                            <!-- Email / Password Form -->
+                            <form id="authForm" class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-300 mb-1" for="inputEmail">Correo Electrónico</label>
+                                    <input type="email" id="inputEmail" required class="w-full px-3 py-2 bg-slate-900/80 border border-slate-600 rounded-lg text-sm text-white focus:outline-none focus:border-emerald-500 transition" placeholder="usuario@empresa.com">
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-slate-900 text-base">Contrato Laboral de Aprendizaje</h4>
-                                    <p class="text-xs text-slate-500 mt-0.5">Bajo la Ley 2466 de 2025 (Fase Práctica / 100% SMMLV + Prestaciones)</p>
+                                    <label class="block text-xs font-medium text-slate-300 mb-1" for="inputPassword">Contraseña</label>
+                                    <input type="password" id="inputPassword" required minlength="6" class="w-full px-3 py-2 bg-slate-900/80 border border-slate-600 rounded-lg text-sm text-white focus:outline-none focus:border-emerald-500 transition" placeholder="••••••••">
                                 </div>
-                                <div class="pt-2 border-t border-slate-100">
-                                    <span class="text-xs text-slate-500">Costo Mensual Estimado por Aprendiz:</span>
-                                    <p class="text-xl font-bold text-slate-900" id="costo-unitario-vinculacion">$2.135.250</p>
-                                </div>
-                                <div class="p-3 bg-slate-50 rounded-xl space-y-1 text-xs text-slate-600">
-                                    <div class="flex justify-between"><span>Salario Base (100%):</span> <strong id="val-salario">$1.423.500</strong></div>
-                                    <div class="flex justify-between"><span>Prestaciones (38.5% est.):</span> <strong id="val-prestaciones">$548.047</strong></div>
-                                    <div class="flex justify-between"><span>Seguridad Social (Salud/ARL/Pen):</span> <strong id="val-ss">$163.702</strong></div>
-                                </div>
-                                <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
-                                    <span class="text-xs font-bold text-slate-700">COSTO TOTAL MENSUAL:</span>
-                                    <span class="text-lg font-extrabold text-sena-700" id="costo-total-vinculacion">$4.270.500</span>
-                                </div>
-                            </div>
 
-                            <!-- Opción 2: Monetización -->
-                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4 relative overflow-hidden">
-                                <div class="w-2 h-full bg-amber-500 absolute left-0 top-0"></div>
-                                <div class="flex items-center justify-between">
-                                    <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold">Opción B</span>
-                                    <i class="fa-solid fa-coins text-amber-600 text-lg"></i>
-                                </div>
+                                <button type="submit" id="btnAuthSubmit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                                    <i data-lucide="log-in" class="w-4 h-4"></i>
+                                    <span id="lblSubmitBtn">Iniciar Sesión</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- User Authenticated State -->
+                        <div id="authSignedInState" class="hidden space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-emerald-500 text-slate-900 font-bold flex items-center justify-center text-lg" id="userInitialHero">U</div>
                                 <div>
-                                    <h4 class="font-bold text-slate-900 text-base">Monetización la Cuota al SENA</h4>
-                                    <p class="text-xs text-slate-500 mt-0.5">Pago mensual directo al SENA según Ley 2466 de 2025</p>
-                                </div>
-                                <div class="pt-2 border-t border-slate-100">
-                                    <span class="text-xs text-slate-500">Valor Cuota Monetización por Aprendiz:</span>
-                                    <p class="text-xl font-bold text-slate-900" id="costo-unitario-monetizacion">$1.587.202</p>
-                                </div>
-                                <div class="p-3 bg-slate-50 rounded-xl space-y-1 text-xs text-slate-600">
-                                    <div class="flex justify-between"><span>Tarifa Base (1 SMMLV):</span> <strong id="val-monet-base">$1.423.500</strong></div>
-                                    <div class="flex justify-between"><span>Aportes SS Equivalentes:</span> <strong id="val-monet-ss">$163.702</strong></div>
-                                    <div class="flex justify-between text-slate-400"><span>Prestaciones Sociales:</span> <span>No Aplica</span></div>
-                                </div>
-                                <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
-                                    <span class="text-xs font-bold text-slate-700">COSTO TOTAL MENSUAL:</span>
-                                    <span class="text-lg font-extrabold text-amber-600" id="costo-total-monetizacion">$3.174.404</span>
+                                    <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Sesión Activa</p>
+                                    <h4 id="userEmailHero" class="text-sm font-bold text-white"></h4>
                                 </div>
                             </div>
+                            <button id="btnLogoutHero" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold py-2 px-4 rounded-lg transition">
+                                Cerrar Sesión
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Interactive Calculator Section -->
+        <section class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="calculator" class="text-emerald-600"></i>
+                    Simulador de Cuota de Aprendizaje SENA
+                </h2>
+                <p class="text-slate-500 text-sm">Calcula la cuota regulada e impactante costo financiero según la Ley 2466 de 2025.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Input Panel -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="workersInput">
+                            Número de trabajadores de planta:
+                        </label>
+                        <input type="number" id="workersInput" min="0" value="25" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-slate-900 font-medium transition" placeholder="Ej: 25">
+                        <span class="text-xs text-slate-500 mt-1 block">Excluye contratistas, temporales y aprendices.</span>
+                    </div>
+
+                    <div class="pt-2">
+                        <button id="btnCalculate" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            Calcular Cuota y Costos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Output -->
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Cuota Asignada Card -->
+                    <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-emerald-800 uppercase tracking-wide">Cuota Regulada SENA</span>
+                            <div class="text-4xl font-extrabold text-emerald-700 my-2" id="resCuota">1 Aprendiz</div>
+                            <p class="text-xs text-emerald-900" id="resRuleDesc">Aplica para plantas de 15 a 20 trabajadores.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-emerald-200/60 text-xs text-emerald-700">
+                            <strong>Cupo universitario máx (25%):</strong> <span id="resUnivQuota">0</span> practicantes
+                        </div>
+                    </div>
+
+                    <!-- Comparativo Financiero Ley 2466 -->
+                    <div class="bg-slate-900 text-white p-5 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Impacto Mensual estimado (Ley 2466)</span>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-300">Vinculación Laboral:</span>
+                                    <span class="font-bold text-emerald-400" id="resCostVinculacion">$0 /mes</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-300">Monetización SENA:</span>
+                                    <span class="font-bold text-amber-400" id="resCostMonetizacion">$0 /mes</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400">
+                            *Cálculos basados en el SMMLV vigente y regulación de prestaciones.
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Matriz Comparativa (Ley 789 de 2002 vs Ley 2466 de 2025) -->
-        <section id="comparativa" class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold uppercase tracking-wider">
-                        Análisis Normativo
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Matriz Comparativa: Ley 789/2002 vs Ley 2466/2025</h2>
-                    <p class="text-slate-600 text-base sm:text-lg">Explora la transformación del Contrato de Aprendizaje y la cuota regulada para empleadores en Colombia.</p>
-                </div>
+        <!-- Comparative Table: Ley 789 vs Ley 2466 -->
+        <section class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-100 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="git-compare" class="text-emerald-600"></i>
+                    Cuadro Comparativo Legal
+                </h2>
+                <p class="text-slate-500 text-sm">Principales cambios introducidos a la cuota de aprendizaje.</p>
+            </div>
 
-                <!-- Tabla Responsive -->
-                <div class="overflow-x-auto rounded-3xl border border-slate-200 shadow-sm">
-                    <table class="w-full text-left border-collapse min-w-[640px]">
-                        <thead>
-                            <tr class="bg-navy-900 text-white">
-                                <th class="py-4 px-6 font-bold text-sm">Aspecto Clave</th>
-                                <th class="py-4 px-6 font-bold text-sm bg-navy-800 border-l border-slate-700">Ley 789 de 2002 (Norma Anterior)</th>
-                                <th class="py-4 px-6 font-bold text-sm bg-sena-700 border-l border-slate-700">Ley 2466 de 2025 (Reforma Laboral)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-200 text-sm">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Naturaleza Jurídica</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">Forma especial dentro del derecho laboral (<strong>No laboral</strong>). Sin prestaciones.</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50">
-                                    <span class="inline-block px-2 py-0.5 rounded bg-sena-100 text-sena-800 text-xs font-bold mb-1">Contrato Laboral</span><br>
-                                    Contrato de trabajo a término fijo especial con todos los derechos laborales.
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Remuneración Fase Lectiva</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">Apoyo de sostenimiento equivalente al 50% del SMMLV.</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50">Apoyo equivalente al 60% del SMMLV (según programa técnico/tecnológico).</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Remuneración Fase Práctica</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">75% SMMLV (o 100% SMMLV si la tasa de desempleo nacional era inferior a 10%).</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50"><strong>100% del SMMLV</strong> como salario formal + Auxilio de transporte obligatorio.</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Prestaciones Sociales</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">No aplicaban (sin prima de servicios, cesantías ni intereses).</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50"><strong>Sí aplican en su totalidad:</strong> Prima de servicios, Cesantías, Intereses y Vacaciones.</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Seguridad Social</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">Salud en fase lectiva; Salud y ARL en fase práctica. (Sin Pensión).</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50"><strong>Cobertura Integral:</strong> Aportes completos a Salud, Pensión y ARL a cargo del empleador.</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="py-4 px-6 font-semibold text-slate-900">Valor Monetización SENA</td>
-                                <td class="py-4 px-6 text-slate-600 border-l border-slate-200">1.5 Salarios Mínimos Mensuales Legales Vigentes (SMMLV) por aprendiz.</td>
-                                <td class="py-4 px-6 text-slate-900 font-medium border-l border-slate-200 bg-sena-50/50"><strong>1 SMMLV</strong> + los aportes a seguridad social equivalentes a la fase práctica.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
+                            <th class="p-4 rounded-l-lg">Criterio</th>
+                            <th class="p-4">Ley 789 de 2002 (Anterior)</th>
+                            <th class="p-4 text-emerald-800 bg-emerald-50/50 rounded-r-lg">Ley 2466 de 2025 (Actual)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm text-slate-600">
+                        <tr>
+                            <td class="p-4 font-semibold text-slate-900">Naturaleza del Contrato</td>
+                            <td class="p-4">Forma especial de vinculación no laboral.</td>
+                            <td class="p-4 bg-emerald-50/20 font-medium text-emerald-900">Contrato de trabajo a término fijo especial.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-slate-900">Prestaciones Sociales</td>
+                            <td class="p-4">No aplicaban (sin primas, cesantías ni vacaciones).</td>
+                            <td class="p-4 bg-emerald-50/20 font-medium text-emerald-900">Pleno derecho a todas las prestaciones sociales.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-slate-900">Seguridad Social</td>
+                            <td class="p-4">Salud y ARL (según fase lectiva/práctica).</td>
+                            <td class="p-4 bg-emerald-50/20 font-medium text-emerald-900">Afiliación completa a Salud, Pensión y ARL.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-slate-900">Monetización Mensual</td>
+                            <td class="p-4">1.5 SMMLV por aprendiz adeudado.</td>
+                            <td class="p-4 bg-emerald-50/20 font-medium text-emerald-900">1 SMMLV + Aportes equivalentes a Seguridad Social.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- Pasos del Trámite ante el SENA -->
-        <section id="tramite" class="py-20 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sena-100 text-sena-800 text-xs font-semibold uppercase tracking-wider">
-                        Ruta de Cumplimiento
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Proceso de Regulación de Cuota Paso a Paso</h2>
-                    <p class="text-slate-600 text-lg">Flujo oficial del trámite administrativo para la asignación y cumplimiento ante el SENA.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Paso 1 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 relative flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sena-50 text-sena-700 font-extrabold text-xl flex items-center justify-center border border-sena-200">
-                                01
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900">Reporte PILA / Fiscalización</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">El SENA verifica el promedio de trabajadores reportados en la PILA por el empleador durante el año anterior.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs text-sena-700 font-semibold">
-                            <i class="fa-solid fa-database mr-2"></i> Cruzamiento de Datos
-                        </div>
-                    </div>
-
-                    <!-- Paso 2 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 relative flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sena-50 text-sena-700 font-extrabold text-xl flex items-center justify-center border border-sena-200">
-                                02
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900">Expedición de la Resolución</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">La Regional del SENA emite el Acto Administrativo que fija oficialmente el número mínimo de aprendices obligatorios.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs text-sena-700 font-semibold">
-                            <i class="fa-solid fa-file-contract mr-2"></i> Notificación Formal
-                        </div>
-                    </div>
-
-                    <!-- Paso 3 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 relative flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sena-50 text-sena-700 font-extrabold text-xl flex items-center justify-center border border-sena-200">
-                                03
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900">Elección de Modalidad</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">La empresa decide si efectúa la contratación de aprendices o solicita la opción de monetización total o parcial.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs text-sena-700 font-semibold">
-                            <i class="fa-solid fa-handshake mr-2"></i> Contratar o Monetizar
-                        </div>
-                    </div>
-
-                    <!-- Paso 4 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 relative flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-sena-50 text-sena-700 font-extrabold text-xl flex items-center justify-center border border-sena-200">
-                                04
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900">Reporte y Cumplimiento</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Registro de los contratos en el Sistema Caprendiz del SENA o realización de los pagos mensuales en las fechas establecidas.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs text-sena-700 font-semibold">
-                            <i class="fa-solid fa-circle-check mr-2"></i> Plataforma SGVA / Caprendiz
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Preguntas Frecuentes (FAQ) -->
-        <section id="faq" class="py-20 bg-white">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center space-y-4 mb-14">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold uppercase tracking-wider">
-                        Preguntas Frecuentes
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Resolución de Dudas Clave</h2>
-                    <p class="text-slate-600">Preguntas comunes sobre la regulación de la cuota de aprendizaje ante el SENA.</p>
-                </div>
-
-                <div class="space-y-4" id="faq-accordion">
-                    <!-- FAQ 1 -->
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden transition-all">
-                        <button class="faq-btn w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50">
-                            <span>¿Qué trabajadores entran en la cuenta para los 15 empleados?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
-                        </button>
-                        <div class="faq-content hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                            Solo se contabilizan los trabajadores vinculados mediante <strong>contrato de trabajo directo</strong> en la planta nacional de la empresa. No se suman contratistas por prestación de servicios (OPS), personal en misión de empresas de servicios temporales ni los aprendices vinculados actualmente.
-                        </div>
-                    </div>
-
-                    <!-- FAQ 2 -->
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden transition-all">
-                        <button class="faq-btn w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50">
-                            <span>¿Existe límite para contratar practicantes universitarios en la cuota?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
-                        </button>
-                        <div class="faq-content hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                            Sí. La legislación colombiana establece que los practicantes de nivel universitario no pueden superar el <strong>25% del total de la cuota regulada</strong> asignada por el SENA a la empresa.
-                        </div>
-                    </div>
-
-                    <!-- FAQ 3 -->
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden transition-all">
-                        <button class="faq-btn w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50">
-                            <span>¿Qué sucede si una empresa no cumple con la cuota regulada?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
-                        </button>
-                        <div class="faq-content hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                            El incumplimiento de la cuota o el no pago oportuno de la monetización genera un proceso administrativo sancionatorio por parte del SENA, aplicando <strong>intereses de mora a la tasa máxima legal vigente</strong> más posibles multas por cada mes de incumplimiento.
-                        </div>
-                    </div>
-
-                    <!-- FAQ 4 -->
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden transition-all">
-                        <button class="faq-btn w-full px-6 py-5 text-left font-bold text-slate-900 flex justify-between items-center hover:bg-slate-50">
-                            <span>¿Las empresas con menos de 15 trabajadores pueden contratar aprendices?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
-                        </button>
-                        <div class="faq-content hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                            Sí, las empresas con 1 a 14 trabajadores <strong>no están obligadas legalmente</strong>, pero pueden vincular aprendices de manera totalmente voluntaria siguiendo los lineamientos del contrato de aprendizaje.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Pie de página -->
-    <footer class="bg-navy-950 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-sena-600 flex items-center justify-center text-white font-bold">
-                    <i class="fa-solid fa-graduation-cap text-sm"></i>
-                </div>
-                <span class="text-lg font-bold text-white tracking-tight">AprendizajeSENA</span>
-            </div>
-            <p class="text-xs text-slate-500">Herramienta informativa de regulación laboral conforme a la Ley 789 de 2002 y Ley 2466 de 2025 en Colombia.</p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Plataforma de Regulación Cuota SENA & Ley 2466 de 2025. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Lógica Interactiva en JavaScript -->
-    <script>
-        // Menú Móvil Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    <!-- Firebase SDK Modules (Email / Password Auth) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-analytics.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
-        mobileMenuBtn.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-xmark');
-            } else {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            }
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB1JnwzK1yVka9eqbG5zfS2OppuA8TOhBU",
+            authDomain: "regulacion-2859f.firebaseapp.com",
+            projectId: "regulacion-2859f",
+            storageBucket: "regulacion-2859f.firebasestorage.app",
+            messagingSenderId: "562318377756",
+            appId: "1:562318377756:web:7a23e2d436cf9365fb70d9",
+            measurementId: "G-D2FRC8B3JL"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // UI State Variables & DOM Elements
+        let isLoginMode = true;
+
+        const tabLogin = document.getElementById('tabLogin');
+        const tabRegister = document.getElementById('tabRegister');
+        const authForm = document.getElementById('authForm');
+        const inputEmail = document.getElementById('inputEmail');
+        const inputPassword = document.getElementById('inputPassword');
+        const lblSubmitBtn = document.getElementById('lblSubmitBtn');
+        const authErrorMsg = document.getElementById('authErrorMsg');
+        const authSuccessMsg = document.getElementById('authSuccessMsg');
+
+        const authSignedOutState = document.getElementById('authSignedOutState');
+        const authSignedInState = document.getElementById('authSignedInState');
+        const userEmailHero = document.getElementById('userEmailHero');
+        const userInitialHero = document.getElementById('userInitialHero');
+
+        const userInfoHeader = document.getElementById('userInfoHeader');
+        const userNameHeader = document.getElementById('userNameHeader');
+        const userInitialHeader = document.getElementById('userInitialHeader');
+        const btnLogoutHeader = document.getElementById('btnLogoutHeader');
+        const btnLogoutHero = document.getElementById('btnLogoutHero');
+
+        // Toggle Auth Mode (Login vs Register)
+        tabLogin.addEventListener('click', () => {
+            isLoginMode = true;
+            tabLogin.className = "w-1/2 py-2 text-center text-sm font-semibold text-emerald-400 border-b-2 border-emerald-400 transition";
+            tabRegister.className = "w-1/2 py-2 text-center text-sm font-semibold text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition";
+            lblSubmitBtn.textContent = "Iniciar Sesión";
+            clearMessages();
         });
 
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            });
+        tabRegister.addEventListener('click', () => {
+            isLoginMode = false;
+            tabRegister.className = "w-1/2 py-2 text-center text-sm font-semibold text-emerald-400 border-b-2 border-emerald-400 transition";
+            tabLogin.className = "w-1/2 py-2 text-center text-sm font-semibold text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition";
+            lblSubmitBtn.textContent = "Crear Cuenta";
+            clearMessages();
         });
 
-        // Lógica de Calculadora de Cuota de Aprendizaje y Costos Ley 2466
-        const inputTrabajadores = document.getElementById('num-trabajadores');
-        const inputSMMLV = document.getElementById('smmlv-val');
-
-        const elEstadoObligacion = document.getElementById('estado-obligacion');
-        const elDetalleFormula = document.getElementById('detalle-formula');
-        const elCuotaResultado = document.getElementById('cuota-resultado');
-
-        const elCostoUnitarioVinc = document.getElementById('costo-unitario-vinculacion');
-        const elValSalario = document.getElementById('val-salario');
-        const elValPrestaciones = document.getElementById('val-prestaciones');
-        const elValSS = document.getElementById('val-ss');
-        const elCostoTotalVinc = document.getElementById('costo-total-vinculacion');
-
-        const elCostoUnitarioMonet = document.getElementById('costo-unitario-monetizacion');
-        const elValMonetBase = document.getElementById('val-monet-base');
-        const elValMonetSS = document.getElementById('val-monet-ss');
-        const elCostoTotalMonet = document.getElementById('costo-total-monetizacion');
-
-        function formatCOP(amount) {
-            return new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                maximumFractionDigits: 0
-            }).format(amount);
+        function clearMessages() {
+            authErrorMsg.classList.add('hidden');
+            authSuccessMsg.classList.add('hidden');
         }
 
-        function calcularCuotaYCostos() {
-            const trabajadores = parseInt(inputTrabajadores.value) || 0;
-            const smmlv = parseFloat(inputSMMLV.value) || 0;
+        // Form Submit Handler
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearMessages();
 
-            let cuota = 0;
-            let explicacion = '';
+            const email = inputEmail.value.trim();
+            const password = inputPassword.value;
 
-            if (trabajadores < 15) {
-                cuota = 0;
-                elEstadoObligacion.innerText = 'No Obligada';
-                elEstadoObligacion.className = 'text-2xl font-bold mt-1 text-slate-400';
-                explicacion = `Para ${trabajadores} trabajadores (menor a 15, vinculación voluntaria)`;
-            } else if (trabajadores >= 15 && trabajadores <= 20) {
-                cuota = 1;
-                elEstadoObligacion.innerText = 'Empresa Obligada';
-                elEstadoObligacion.className = 'text-2xl font-bold mt-1 text-sena-600';
-                explicacion = `Para ${trabajadores} trabajadores (rango base 15 a 20 = 1 aprendiz)`;
-            } else {
-                cuota = 1; // 1 por los primeros 20 completos
-                const rem = trabajadores - 20;
-                const enteros = Math.floor(rem / 20);
-                const fraccion = rem % 20;
-
-                cuota += enteros;
-                if (fraccion >= 10) {
-                    cuota += 1;
-                }
-
-                elEstadoObligacion.innerText = 'Empresa Obligada';
-                elEstadoObligacion.className = 'text-2xl font-bold mt-1 text-sena-600';
-                explicacion = `Para ${trabajadores} trabajadores en planta nacional`;
-            }
-
-            elCuotaResultado.innerText = cuota;
-            elDetalleFormula.innerText = explicacion;
-
-            // Cálculos Financieros Ley 2466 de 2025 (Fase práctica)
-            // Vinculación Laboral Directa:
-            // Salario = 1 SMMLV
-            // Prestaciones sociales est. = ~38.5% (Prima 8.33%, Cesantías 8.33%, Int. Cesantías 1%, Vacaciones 4.16%, Aux Transporte est. 16.6%)
-            // Seguridad Social = Salud (8.5%), Pensión (12%), ARL (~0.522%) -> (Exención CREE/Art 114-1 puede aplicar en Salud/SENA/ICBF, calculamos aporte estimado base)
-            const salarioBase = smmlv;
-            const prestaciones = smmlv * 0.385;
-            const segSocialVinc = smmlv * 0.115; // Estimado ARL + Salud/Pensión según exon.
-            const costoUnitarioVinc = salarioBase + prestaciones + segSocialVinc;
-            const costoTotalVinc = costoUnitarioVinc * cuota;
-
-            // Monetización Ley 2466 de 2025:
-            // Tarifa = 1 SMMLV + aportes equivalentes a Seguridad Social
-            const monetBase = smmlv;
-            const monetSS = smmlv * 0.115;
-            const costoUnitarioMonet = monetBase + monetSS;
-            const costoTotalMonet = costoUnitarioMonet * cuota;
-
-            // Renderizar Valores
-            elCostoUnitarioVinc.innerText = formatCOP(costoUnitarioVinc);
-            elValSalario.innerText = formatCOP(salarioBase);
-            elValPrestaciones.innerText = formatCOP(prestaciones);
-            elValSS.innerText = formatCOP(segSocialVinc);
-            elCostoTotalVinc.innerText = formatCOP(costoTotalVinc);
-
-            elCostoUnitarioMonet.innerText = formatCOP(costoUnitarioMonet);
-            elValMonetBase.innerText = formatCOP(monetBase);
-            elValMonetSS.innerText = formatCOP(monetSS);
-            elCostoTotalMonet.innerText = formatCOP(costoTotalMonet);
-        }
-
-        inputTrabajadores.addEventListener('input', calcularCuotaYCostos);
-        inputSMMLV.addEventListener('input', calcularCuotaYCostos);
-
-        // Inicializar Cálculo al cargar
-        calcularCuotaYCostos();
-
-        // Acordeón FAQ
-        const faqBtns = document.querySelectorAll('.faq-btn');
-        faqBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const content = btn.nextElementSibling;
-                const icon = btn.querySelector('i');
-                
-                const isHidden = content.classList.contains('hidden');
-                if (isHidden) {
-                    content.classList.remove('hidden');
-                    icon.classList.add('rotate-180');
+            try {
+                if (isLoginMode) {
+                    await signInWithEmailAndPassword(auth, email, password);
                 } else {
-                    content.classList.add('hidden');
-                    icon.classList.remove('rotate-180');
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    authSuccessMsg.textContent = "¡Cuenta creada con éxito!";
+                    authSuccessMsg.classList.remove('hidden');
                 }
-            });
+            } catch (error) {
+                console.error("Error Auth:", error);
+                let message = "Ocurrió un error en la autenticación.";
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    message = "Correo o contraseña incorrectos.";
+                } else if (error.code === 'auth/email-already-in-use') {
+                    message = "Este correo ya está registrado.";
+                } else if (error.code === 'auth/weak-password') {
+                    message = "La contraseña debe tener al menos 6 caracteres.";
+                }
+                authErrorMsg.textContent = message;
+                authErrorMsg.classList.remove('hidden');
+            }
         });
+
+        // Logout Handler
+        const handleLogout = async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Error al cerrar sesión:", error);
+            }
+        };
+
+        btnLogoutHeader?.addEventListener('click', handleLogout);
+        btnLogoutHero?.addEventListener('click', handleLogout);
+
+        // Auth State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const initial = (user.email ? user.email.charAt(0) : 'U').toUpperCase();
+
+                // Signed in UI
+                authSignedOutState.classList.add('hidden');
+                authSignedInState.classList.remove('hidden');
+                userEmailHero.textContent = user.email;
+                userInitialHero.textContent = initial;
+
+                userInfoHeader.classList.remove('hidden');
+                userNameHeader.textContent = user.email;
+                userInitialHeader.textContent = initial;
+
+                authForm.reset();
+                clearMessages();
+            } else {
+                // Signed out UI
+                authSignedOutState.classList.remove('hidden');
+                authSignedInState.classList.add('hidden');
+                userInfoHeader.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- App Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+            calculateQuota();
+        });
+
+        const workersInput = document.getElementById('workersInput');
+        const btnCalculate = document.getElementById('btnCalculate');
+
+        function calculateQuota() {
+            const workers = parseInt(workersInput.value) || 0;
+            let cuota = 0;
+            let ruleDesc = "";
+
+            if (workers < 15) {
+                cuota = 0;
+                ruleDesc = "Empresas con menos de 15 trabajadores no están obligadas a cuota.";
+            } else if (workers >= 15 && workers <= 20) {
+                cuota = 1;
+                ruleDesc = "De 15 a 20 trabajadores se asigna exactamente 1 aprendiz.";
+            } else {
+                const baseCuota = Math.floor(workers / 20);
+                const remainder = workers % 20;
+                cuota = baseCuota + (remainder >= 10 ? 1 : 0);
+                ruleDesc = `Cálculo: ${baseCuota} por cada 20 completos ${remainder >= 10 ? '+ 1 adicional por fracción >= 10' : ''}.`;
+            }
+
+            const univQuota = Math.floor(cuota * 0.25);
+            const smmlvEst = 1423500;
+
+            const costVinculacion = cuota * (smmlvEst * 1.55);
+            const costMonetizacion = cuota * (smmlvEst * 1.30);
+
+            document.getElementById('resCuota').textContent = cuota === 1 ? '1 Aprendiz' : `${cuota} Aprendices`;
+            document.getElementById('resRuleDesc').textContent = ruleDesc;
+            document.getElementById('resUnivQuota').textContent = univQuota;
+
+            const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+            document.getElementById('resCostVinculacion').textContent = formatter.format(costVinculacion) + " /mes";
+            document.getElementById('resCostMonetizacion').textContent = formatter.format(costMonetizacion) + " /mes";
+        }
+
+        btnCalculate.addEventListener('click', calculateQuota);
+        workersInput.addEventListener('input', calculateQuota);
     </script>
 </body>
 </html>
